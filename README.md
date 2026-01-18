@@ -106,7 +106,7 @@ E:\code\go\toolset\disk>disk
   -t int
         文件大小阈值 (default 1073741824)
 ```
-2. 运行扫描程序, -t 指定单位为字节
+2. 运行扫描程序, -t 指定文件阈值大小，单位为字节
 ```
 disk -r=E:\CODE\GO\TOOLSET\ROOT -t=5
 ```
@@ -120,3 +120,13 @@ disk -m=clean
 [https://github.com/shootercheng/disk/releases/download/v1.0.0/disk.exe](https://github.com/shootercheng/disk/releases/download/v1.0.0/disk.exe)
 2. linux amd64 
 [https://github.com/shootercheng/disk/releases/download/v1.0.0/disk](https://github.com/shootercheng/disk/releases/download/v1.0.0/disk)
+
+```bash
+$ wget https://github.com/shootercheng/disk/releases/download/v1.0.0/disk
+```
+```bash
+$ chmox +x ./disk
+```
+```bash
+$ ./disk -h
+```
