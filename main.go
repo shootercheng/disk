@@ -9,7 +9,22 @@ import (
 	"gitee.com/3281328128/disk/internal/clean"
 	"gitee.com/3281328128/disk/internal/scan"
 	"gitee.com/3281328128/disk/pkg/constants"
+	"gitee.com/3281328128/disk/pkg/system"
 )
+
+var (
+	methodType    string
+	rootPath      string
+	outputPath    string
+	thresholdByte int64
+)
+
+func init() {
+	flag.StringVar(&methodType, "m", "scan", "执行方法:scan或者clean")
+	flag.StringVar(&rootPath, "r", "", "扫描根路径")
+	flag.StringVar(&outputPath, "o", "scan.txt", "扫描输出文件")
+	flag.Int64Var(&thresholdByte, "t", 1024*1024*1024, "文件大小阈值")
+}
 
 func delExistsFile(filePath string) {
 	outPutFile, err := os.Stat(filePath)
@@ -17,43 +32,32 @@ func delExistsFile(filePath string) {
 		if !outPutFile.IsDir() {
 			err := os.Remove(filePath)
 			if err != nil {
-				fmt.Printf("删除文件:%s", filePath)
+				fmt.Printf("删除文件:%s,失败:%s\n", filePath, err.Error())
+			} else {
+				fmt.Printf("删除扫描输出文件:%s 成功\n", filePath)
 			}
 		}
 	}
 }
 
 func scanFile() {
-	var rootPath string
-	var outputPath string
-	var thresholdByte int64
-
-	fs := flag.NewFlagSet("start", flag.ExitOnError)
-	fs.StringVar(&rootPath, "r", "", "扫描根路径")
-	fs.StringVar(&outputPath, "o", "", "扫描输出文件")
-	fs.Int64Var(&thresholdByte, "t", 1024*1024*1024, "文件大小阈值")
-	if err := fs.Parse(os.Args[1:]); err != nil {
-		fmt.Println("命令行参数解析失败")
-		return
-	}
-
 	if rootPath == "" {
 		fmt.Println("扫描根路径不能为空")
-		return
+		os.Exit(0)
 	}
 	if outputPath == "" {
 		fmt.Println("扫描输出文件不能为空")
-		return
+		os.Exit(0)
 	}
 
 	rootFile, err := os.Stat(rootPath)
 	if err != nil {
 		fmt.Println("输入文件路径错误")
-		return
+		os.Exit(0)
 	}
 	if !rootFile.IsDir() {
 		fmt.Println("输入路径不是文件夹")
-		return
+		os.Exit(0)
 	}
 
 	outPutFile, err := os.Stat(outputPath)
@@ -74,6 +78,7 @@ func scanFile() {
 	scan.Threshold_Byte = thresholdByte
 
 	fmt.Printf("扫描根路径:%s,扫描输出文件:%s,阈值:%d\n", rootPath, outputPath, thresholdByte)
+	system.PrintSysInfo()
 
 	t := time.Now()
 	size := scan.ScanFileByPath(rootPath)
@@ -86,16 +91,30 @@ func scanFile() {
 	fmt.Println("常规扫描消耗时间:", cost_time)
 }
 
+func cleanFile() {
+	if outputPath == "" {
+		fmt.Println("扫描输出文件参数不能为空")
+		os.Exit(0)
+	}
+	fmt.Printf("开始执行文件清理任务,扫描结果文件路径:%s\n", outputPath)
+	clean.CleanFile(outputPath)
+}
+
 func main() {
-	// scanFile()
+	if len(os.Args) <= 1 {
+		fmt.Fprintln(os.Stderr, "请输入提示的命令行参数, 无默认值(default)的为必须输入参数")
+		flag.PrintDefaults()
+		os.Exit(0)
+	}
+	flag.Parse()
 
-	clean.CleanFile("scan.txt")
-
-	// t_routine := time.Now()
-	// fileSizeChan := make(chan int64)
-	// go scan.ScanFileByPathGoRoutine(rootPath, fileSizeChan)
-	// fileSumSize := <-fileSizeChan
-	// fmt.Printf("文件夹:%s 包含文件大小为:%d \n", rootPath, fileSumSize)
-	// routine_cost_time := time.Since(t_routine)
-	// fmt.Println("Go协程扫描时间:", routine_cost_time)
+	switch methodType {
+	case "scan":
+		scanFile()
+	case "clean":
+		cleanFile()
+	default:
+		fmt.Println("命令行参数m错误,请输入scan或者clean")
+		os.Exit(0)
+	}
 }

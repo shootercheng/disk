@@ -11,7 +11,7 @@ import (
 func CleanFile(scanFilePath string) {
 	fileBytes, err := os.ReadFile(scanFilePath)
 	if err != nil {
-		fmt.Printf("读取描结果文件:%s失败", scanFilePath)
+		fmt.Printf("读取描结果文件:%s失败:%s", scanFilePath, err.Error())
 		return
 	}
 	fileContent := string(fileBytes)
