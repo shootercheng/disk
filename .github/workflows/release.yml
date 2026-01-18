@@ -41,6 +41,6 @@ jobs:
         # 推荐在 release workflow 中使用可将文件附加到触发 release 的 action
         uses: softprops/action-gh-release@v1
         with:
-          files: disk.exe,disk
+          files: dist/*
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
