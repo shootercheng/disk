@@ -1,6 +1,11 @@
 # 文件扫描、文件清除命令行工具
 
-# 使用源码运行
+如何运行程序，提供一下3种方式
+1. 使用源码运行
+2. go install 安装
+3. 直接下载可执行文件
+
+## 使用源码运行
 1. 下载源码
 2. 准备测试文件体验,测试文件结构如下
 ```txt
@@ -83,3 +88,32 @@ E:\code\go\toolset\disk>go run main.go -m=clean
 {deleted}[文件]:E:\CODE\GO\TOOLSET\ROOT\root_2.txt,11
 [文件夹]:E:\CODE\GO\TOOLSET\ROOT,51
 ```
+
+## go install 安装
+```bash
+go install github.com/shootercheng/disk@latest
+```
+1. 检查是否安装成功，执行disk命令
+```bash
+E:\code\go\toolset\disk>disk
+请输入提示的命令行参数, 无默认值(default)的为必须输入参数
+  -m string
+        执行方法:scan或者clean (default "scan")
+  -o string
+        扫描输出文件 (default "scan.txt")
+  -r string
+        扫描根路径
+  -t int
+        文件大小阈值 (default 1073741824)
+```
+2. 运行扫描程序, -t 指定单位为字节
+```
+disk -r=E:\CODE\GO\TOOLSET\ROOT -t=5
+```
+3. 运行清除文件
+```
+disk -m=clean
+```
+
+## 下载已发布的可执行文件运行
+[https://github.com/shootercheng/disk/releases/download/v1.0.0/go-disk.exe](https://github.com/shootercheng/disk/releases/download/v1.0.0/go-disk.exe)
