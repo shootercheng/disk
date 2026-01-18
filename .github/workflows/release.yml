@@ -8,7 +8,7 @@ jobs:
   build-and-publish:
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write
       packages: write
       # 如果上传 release assets，确保有 write 权限（GITHUB_TOKEN 默认足够）
     strategy:
