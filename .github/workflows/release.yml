@@ -31,9 +31,9 @@ jobs:
         run: |
           mkdir -p dist
           if [ "${{ matrix.os }}" = "windows" ]; then
-            GOOS=windows GOARCH=amd64 go build -o dist/disk.exe ./...
+            GOOS=windows GOARCH=amd64 go build -o disk.exe ./...
           else
-            GOOS=linux GOARCH=amd64 go build -o dist/ ./...
+            GOOS=linux GOARCH=amd64 go build -o disk ./...
           fi
 
       - name: Upload Release Asset
@@ -41,6 +41,6 @@ jobs:
         # 推荐在 release workflow 中使用可将文件附加到触发 release 的 action
         uses: softprops/action-gh-release@v1
         with:
-          files: dist/*
+          files: disk.exe,disk
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
