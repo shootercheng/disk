@@ -31,9 +31,9 @@ jobs:
         run: |
           mkdir -p dist
           if [ "${{ matrix.os }}" = "windows" ]; then
-            GOOS=windows GOARCH=amd64 go build -o disk.exe ./...
+            GOOS=windows GOARCH=amd64 go build -o dist/disk.exe
           else
-            GOOS=linux GOARCH=amd64 go build -o disk ./...
+            GOOS=linux GOARCH=amd64 go build -o dist/disk
           fi
 
       - name: Upload Release Asset
