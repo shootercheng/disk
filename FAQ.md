@@ -4,8 +4,7 @@
 |问题|解决方式|
 |:--|:--|
 |读取文件夹 F:\ISO\Linux 失败:open F:\ISO\Linux: Access is denied.|切换成管理员方式运行|
-|Linux系统运行 disk 命令 显示 $ ./disk
--bash: ./disk: Permission denied|chmod +x ./disk|
+|Linux系统运行 disk 命令显示-bash: ./disk: Permission denied|chmod +x ./disk|
 
 ## 执行 clean 任务问题记录
 
