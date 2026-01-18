@@ -5,7 +5,7 @@ import (
 	"os"
 	"strings"
 
-	"gitee.com/3281328128/disk/pkg/constants"
+	"github.com/shootercheng/disk/pkg/constants"
 )
 
 func CleanFile(scanFilePath string) {

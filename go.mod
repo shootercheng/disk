@@ -1,3 +1,3 @@
-module gitee.com/3281328128/disk
+module github.com/shootercheng/disk
 
 go 1.25.5

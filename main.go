@@ -6,10 +6,10 @@ import (
 	"os"
 	"time"
 
-	"gitee.com/3281328128/disk/internal/clean"
-	"gitee.com/3281328128/disk/internal/scan"
-	"gitee.com/3281328128/disk/pkg/constants"
-	"gitee.com/3281328128/disk/pkg/system"
+	"github.com/shootercheng/disk/internal/clean"
+	"github.com/shootercheng/disk/internal/scan"
+	"github.com/shootercheng/disk/pkg/constants"
+	"github.com/shootercheng/disk/pkg/system"
 )
 
 var (
@@ -105,6 +105,9 @@ func main() {
 		fmt.Fprintln(os.Stderr, "请输入提示的命令行参数, 无默认值(default)的为必须输入参数")
 		flag.PrintDefaults()
 		os.Exit(0)
+	}
+	flag.Usage = func() {
+		flag.PrintDefaults()
 	}
 	flag.Parse()
 

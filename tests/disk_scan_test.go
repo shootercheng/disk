@@ -5,7 +5,7 @@ import (
 	"testing"
 	"time"
 
-	"gitee.com/3281328128/disk/internal/scan"
+	"github.com/shootercheng/disk/internal/scan"
 )
 
 func TestScanFileByPath(t *testing.T) {

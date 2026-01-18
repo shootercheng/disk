@@ -5,8 +5,8 @@ import (
 	"os"
 	"sync"
 
-	"gitee.com/3281328128/disk/pkg/constants"
-	"gitee.com/3281328128/disk/pkg/system"
+	"github.com/shootercheng/disk/pkg/constants"
+	"github.com/shootercheng/disk/pkg/system"
 )
 
 var (
