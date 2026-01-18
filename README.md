@@ -116,4 +116,7 @@ disk -m=clean
 ```
 
 ## 下载已发布的可执行文件运行
-[https://github.com/shootercheng/disk/releases/download/v1.0.0/go-disk.exe](https://github.com/shootercheng/disk/releases/download/v1.0.0/go-disk.exe)
+1. windows amd64
+[https://github.com/shootercheng/disk/releases/download/v1.0.0/disk.exe](https://github.com/shootercheng/disk/releases/download/v1.0.0/disk.exe)
+2. linux amd64 
+[https://github.com/shootercheng/disk/releases/download/v1.0.0/disk](https://github.com/shootercheng/disk/releases/download/v1.0.0/disk)
