@@ -1,0 +1,15 @@
+{
+    "pkg_constans_001": "文件",
+    "pkg_constans_002": "文件夹",
+    "pkg_constants_003": "{已删除}",
+    "pkg_system_001" : "当前系统类型:%s,文件路径分隔符:%s\n",
+    "internal_scan_001": "读取文件夹 %s 失败:%s\n",
+    "internal_scan_002": "获取文件信息:%s失败:%s\n",    
+    "internal_scan_003": "路径%s写入输出文件失败\n", 
+    "internal_clean_001": "读取描结果文件:%s失败:%s",
+    "internal_clean_002": "删除结果写入文件:%s失败:%s",
+    "internal_clean_003": "确认删除%s:%s?Y(是) N(否) Q(退出程序):",
+    "internal_clean_004": "删除%s:%s,失败:%s\n",
+    "internal_clean_005": "删除%s:%s,成功\n",
+    "internal_clean_006": "未知命令,请按照提示输出"
+}

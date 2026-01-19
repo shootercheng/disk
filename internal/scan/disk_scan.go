@@ -6,6 +6,7 @@ import (
 	"sync"
 
 	"github.com/shootercheng/disk/pkg/constants"
+	"github.com/shootercheng/disk/pkg/locales"
 	"github.com/shootercheng/disk/pkg/system"
 )
 
@@ -17,7 +18,7 @@ var (
 func ScanFileByPath(path string) int64 {
 	res, err := os.ReadDir(path)
 	if err != nil {
-		fmt.Printf("读取文件夹 %s 失败:%s\n", path, err.Error())
+		fmt.Printf(locales.GetMsg("internal_scan_001"), path, err.Error())
 		return 0
 	}
 
@@ -37,7 +38,7 @@ func ScanFileByPath(path string) int64 {
 		filePath := path + system.FileSeparator + file.Name()
 		fileInfo, err := file.Info()
 		if err != nil {
-			fmt.Printf("获取文件信息:%s失败:%s\n", filePath, err.Error())
+			fmt.Printf(locales.GetMsg("internal_scan_002"), filePath, err.Error())
 		} else {
 			fileSize := fileInfo.Size()
 			fileSumSize += fileSize
@@ -55,7 +56,7 @@ func WriteThresholdPathInfo(content string) {
 	if Output_File != nil {
 		_, err := Output_File.WriteString(content)
 		if err != nil {
-			fmt.Printf("路径%s写入输出文件失败\n", content)
+			fmt.Printf(locales.GetMsg("internal_scan_003"), content)
 		}
 	}
 }
@@ -65,7 +66,7 @@ var lock sync.Mutex
 func ScanFileByPathGoRoutine(path string, fileSizeChan chan int64) {
 	res, err := os.ReadDir(path)
 	if err != nil {
-		fmt.Printf("读取文件夹 %s 失败:%s\n", path, err.Error())
+		fmt.Printf(locales.GetMsg("internal_scan_001"), path, err.Error())
 		fileSizeChan <- 0
 		return
 	}
@@ -78,7 +79,7 @@ func ScanFileByPathGoRoutine(path string, fileSizeChan chan int64) {
 			go ScanFileByPathGoRoutine(currenDirPath, fileSizeChan)
 			dirSize := <-fileSizeChan
 			if dirSize >= Threshold_Byte {
-				fmt.Printf("[%s]:%s 文件大小为:%d\n", constants.FILE_DIR, currenDirPath, dirSize)
+				fmt.Printf("[%s]:%s,%d\n", constants.FILE_DIR, currenDirPath, dirSize)
 			}
 			lock.Lock()
 			fileSumSize += dirSize
@@ -88,11 +89,11 @@ func ScanFileByPathGoRoutine(path string, fileSizeChan chan int64) {
 		filePath := path + system.FileSeparator + file.Name()
 		fileInfo, err := file.Info()
 		if err != nil {
-			fmt.Printf("获取文件信息:%s失败:%s\n", filePath, err.Error())
+			fmt.Printf(locales.GetMsg("internal_scan_002"), filePath, err.Error())
 		} else {
 			fileSize := fileInfo.Size()
 			if fileSize > Threshold_Byte {
-				fmt.Printf("[%s]:%s 大小为:%d \n", constants.FILE, filePath, fileSize)
+				fmt.Printf("[%s]:%s,%d\n", constants.FILE, filePath, fileSize)
 			}
 			lock.Lock()
 			fileSumSize += fileSize

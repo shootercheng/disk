@@ -6,12 +6,13 @@ import (
 	"strings"
 
 	"github.com/shootercheng/disk/pkg/constants"
+	"github.com/shootercheng/disk/pkg/locales"
 )
 
 func CleanFile(scanFilePath string) {
 	fileBytes, err := os.ReadFile(scanFilePath)
 	if err != nil {
-		fmt.Printf("读取描结果文件:%s失败:%s", scanFilePath, err.Error())
+		fmt.Printf(locales.GetMsg("internal_clean_001"), scanFilePath, err.Error())
 		return
 	}
 	fileContent := string(fileBytes)
@@ -29,7 +30,7 @@ func CleanFile(scanFilePath string) {
 	result := strings.Join(dataLines, "\n")
 	err = os.WriteFile(scanFilePath, []byte(result), 0644)
 	if err != nil {
-		fmt.Printf("删除结果写入文件:%s失败:%s", scanFilePath, err.Error())
+		fmt.Printf(locales.GetMsg("internal_clean_002"), scanFilePath, err.Error())
 	}
 }
 
@@ -52,17 +53,23 @@ func deleteFIleOrDir(lines []string, indexMap map[int]string, delType string) {
 		}
 		filePath := content[:lastIndex]
 		var userInput string
-		fmt.Printf("确认删除%s:%s?Y或者N:", delType, filePath)
+		fmt.Printf(locales.GetMsg("internal_clean_003"), delType, filePath)
 		fmt.Scanln(&userInput)
-		if userInput == "Y" || userInput == "y" {
+		userInput = strings.ToUpper(strings.Trim(userInput, " "))
+		switch userInput {
+		case "Y":
 			err := os.RemoveAll(filePath)
 			if err != nil {
-				fmt.Printf("删除%s:%s,失败:%s\n", delType, filePath, err.Error())
+				fmt.Printf(locales.GetMsg("internal_clean_004"), delType, filePath, err.Error())
 				indexMap[index] = err.Error()
 			} else {
-				fmt.Printf("删除%s:%s,成功\n", delType, filePath)
+				fmt.Printf(locales.GetMsg("internal_clean_005"), delType, filePath)
 				indexMap[index] = "ok"
 			}
+		case "Q":
+			os.Exit(1)
+		default:
+			fmt.Println(locales.GetMsg("internal_clean_006"))
 		}
 	}
 }

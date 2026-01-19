@@ -1,0 +1,6 @@
+{
+    "pkg_constans_001": "FILE",
+    "pkg_constans_002": "FILE_DIR",
+    "pkg_constants_003": "{deleted}",
+    "pkg_system_001" : "Current system type: %s,file path separator: %s\n"
+}

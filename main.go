@@ -9,6 +9,7 @@ import (
 	"github.com/shootercheng/disk/internal/clean"
 	"github.com/shootercheng/disk/internal/scan"
 	"github.com/shootercheng/disk/pkg/constants"
+	"github.com/shootercheng/disk/pkg/locales"
 	"github.com/shootercheng/disk/pkg/system"
 )
 
@@ -17,6 +18,7 @@ var (
 	rootPath      string
 	outputPath    string
 	thresholdByte int64
+	language      string
 )
 
 func init() {
@@ -24,6 +26,7 @@ func init() {
 	flag.StringVar(&rootPath, "r", "", "扫描根路径")
 	flag.StringVar(&outputPath, "o", "scan.txt", "扫描输出文件")
 	flag.Int64Var(&thresholdByte, "t", 1024*1024*1024, "文件大小阈值")
+	flag.StringVar(&language, "l", "zh", "语言环境")
 }
 
 func delExistsFile(filePath string) {
@@ -110,6 +113,8 @@ func main() {
 		flag.PrintDefaults()
 	}
 	flag.Parse()
+
+	locales.LoadLocales(language)
 
 	switch methodType {
 	case "scan":

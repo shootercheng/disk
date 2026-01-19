@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"os"
 	"runtime"
+
+	"github.com/shootercheng/disk/pkg/locales"
 )
 
 var (
@@ -17,5 +19,5 @@ func init() {
 }
 
 func PrintSysInfo() {
-	fmt.Printf("当前系统类型:%s,文件路径分隔符:%s\n", OsType, FileSeparator)
+	fmt.Printf(locales.GetMsg("pkg_system_001"), OsType, FileSeparator)
 }
