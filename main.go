@@ -35,9 +35,9 @@ func delExistsFile(filePath string) {
 		if !outPutFile.IsDir() {
 			err := os.Remove(filePath)
 			if err != nil {
-				fmt.Printf("删除文件:%s,失败:%s\n", filePath, err.Error())
+				fmt.Printf(locales.GetMsg(constants.MAIN_DELETE_FILE_FAIL_KEY), filePath, err.Error())
 			} else {
-				fmt.Printf("删除扫描输出文件:%s 成功\n", filePath)
+				fmt.Printf(locales.GetMsg(constants.MAIN_DELETE_SCAN_FILE_SUCCESS_KEY), filePath)
 			}
 		}
 	}
@@ -45,21 +45,21 @@ func delExistsFile(filePath string) {
 
 func scanFile() {
 	if rootPath == "" {
-		fmt.Println("扫描根路径不能为空")
+		fmt.Println(locales.GetMsg(constants.MAIN_ROOT_PATH_EMPTY_KEY))
 		os.Exit(0)
 	}
 	if outputPath == "" {
-		fmt.Println("扫描输出文件不能为空")
+		fmt.Println(locales.GetMsg(constants.MAIN_OUTPUT_FILE_EMPTY_KEY))
 		os.Exit(0)
 	}
 
 	rootFile, err := os.Stat(rootPath)
 	if err != nil {
-		fmt.Println("输入文件路径错误")
+		fmt.Println(locales.GetMsg(constants.MAIN_INPUT_PATH_ERROR_KEY))
 		os.Exit(0)
 	}
 	if !rootFile.IsDir() {
-		fmt.Println("输入路径不是文件夹")
+		fmt.Println(locales.GetMsg(constants.MAIN_INPUT_PATH_NOT_DIR_KEY))
 		os.Exit(0)
 	}
 
@@ -73,14 +73,14 @@ func scanFile() {
 
 	sacnOutFile, err := os.OpenFile(outputPath, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
 	if err != nil {
-		fmt.Println("打开扫描结果文件失败")
+		fmt.Println(locales.GetMsg(constants.MAIN_OPEN_SCAN_FILE_FAIL_KEY))
 		return
 	}
 	defer sacnOutFile.Close()
 	scan.Output_File = sacnOutFile
 	scan.Threshold_Byte = thresholdByte
 
-	fmt.Printf("扫描根路径:%s,扫描输出文件:%s,阈值:%d\n", rootPath, outputPath, thresholdByte)
+	fmt.Printf(locales.GetMsg(constants.MAIN_SCAN_INFO_KEY), rootPath, outputPath, thresholdByte)
 	system.PrintSysInfo()
 
 	t := time.Now()
@@ -91,21 +91,21 @@ func scanFile() {
 		scan.WriteThresholdPathInfo(content)
 	}
 	cost_time := time.Since(t)
-	fmt.Println("常规扫描消耗时间:", cost_time)
+	fmt.Printf("%s%s\n", locales.GetMsg(constants.MAIN_SCAN_TIME_KEY), cost_time)
 }
 
 func cleanFile() {
 	if outputPath == "" {
-		fmt.Println("扫描输出文件参数不能为空")
+		fmt.Println(locales.GetMsg(constants.MAIN_OUTPUT_FILE_PARAM_EMPTY_KEY))
 		os.Exit(0)
 	}
-	fmt.Printf("开始执行文件清理任务,扫描结果文件路径:%s\n", outputPath)
+	fmt.Printf(locales.GetMsg(constants.MAIN_START_CLEAN_KEY), outputPath)
 	clean.CleanFile(outputPath)
 }
 
 func main() {
 	if len(os.Args) <= 1 {
-		fmt.Fprintln(os.Stderr, "请输入提示的命令行参数, 无默认值(default)的为必须输入参数")
+		fmt.Fprintln(os.Stderr, locales.GetMsg(constants.MAIN_ENTER_PARAMS_KEY))
 		flag.PrintDefaults()
 		os.Exit(0)
 	}
@@ -122,7 +122,7 @@ func main() {
 	case "clean":
 		cleanFile()
 	default:
-		fmt.Println("命令行参数m错误,请输入scan或者clean")
+		fmt.Println(locales.GetMsg(constants.MAIN_METHOD_ERROR_KEY))
 		os.Exit(0)
 	}
 }

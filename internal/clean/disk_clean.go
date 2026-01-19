@@ -12,7 +12,7 @@ import (
 func CleanFile(scanFilePath string) {
 	fileBytes, err := os.ReadFile(scanFilePath)
 	if err != nil {
-		fmt.Printf(locales.GetMsg("internal_clean_001"), scanFilePath, err.Error())
+		fmt.Printf(locales.GetMsg(constants.CLEAN_READ_RESULT_FAIL_KEY), scanFilePath, err.Error())
 		return
 	}
 	fileContent := string(fileBytes)
@@ -30,7 +30,7 @@ func CleanFile(scanFilePath string) {
 	result := strings.Join(dataLines, "\n")
 	err = os.WriteFile(scanFilePath, []byte(result), 0644)
 	if err != nil {
-		fmt.Printf(locales.GetMsg("internal_clean_002"), scanFilePath, err.Error())
+		fmt.Printf(locales.GetMsg(constants.CLEAN_WRITE_DELETE_RESULT_FAIL_KEY), scanFilePath, err.Error())
 	}
 }
 
@@ -53,23 +53,23 @@ func deleteFIleOrDir(lines []string, indexMap map[int]string, delType string) {
 		}
 		filePath := content[:lastIndex]
 		var userInput string
-		fmt.Printf(locales.GetMsg("internal_clean_003"), delType, filePath)
+		fmt.Printf(locales.GetMsg(constants.CLEAN_CONFIRM_DELETE_KEY), delType, filePath)
 		fmt.Scanln(&userInput)
 		userInput = strings.ToUpper(strings.Trim(userInput, " "))
 		switch userInput {
 		case "Y":
 			err := os.RemoveAll(filePath)
 			if err != nil {
-				fmt.Printf(locales.GetMsg("internal_clean_004"), delType, filePath, err.Error())
+				fmt.Printf(locales.GetMsg(constants.CLEAN_DELETE_FAIL_KEY), delType, filePath, err.Error())
 				indexMap[index] = err.Error()
 			} else {
-				fmt.Printf(locales.GetMsg("internal_clean_005"), delType, filePath)
+				fmt.Printf(locales.GetMsg(constants.CLEAN_DELETE_SUCCESS_KEY), delType, filePath)
 				indexMap[index] = "ok"
 			}
 		case "Q":
 			os.Exit(1)
 		default:
-			fmt.Println(locales.GetMsg("internal_clean_006"))
+			fmt.Println(locales.GetMsg(constants.CLEAN_UNKNOWN_COMMAND_KEY))
 		}
 	}
 }

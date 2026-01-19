@@ -5,6 +5,7 @@ import (
 	"os"
 	"runtime"
 
+	"github.com/shootercheng/disk/pkg/constants"
 	"github.com/shootercheng/disk/pkg/locales"
 )
 
@@ -19,5 +20,5 @@ func init() {
 }
 
 func PrintSysInfo() {
-	fmt.Printf(locales.GetMsg("pkg_system_001"), OsType, FileSeparator)
+	fmt.Printf(locales.GetMsg(constants.SYSTEM_INFO_MSG_KEY), OsType, FileSeparator)
 }

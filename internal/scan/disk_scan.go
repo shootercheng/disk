@@ -18,7 +18,7 @@ var (
 func ScanFileByPath(path string) int64 {
 	res, err := os.ReadDir(path)
 	if err != nil {
-		fmt.Printf(locales.GetMsg("internal_scan_001"), path, err.Error())
+		fmt.Printf(locales.GetMsg(constants.SCAN_READ_FOLDER_FAIL_KEY), path, err.Error())
 		return 0
 	}
 
@@ -38,7 +38,7 @@ func ScanFileByPath(path string) int64 {
 		filePath := path + system.FileSeparator + file.Name()
 		fileInfo, err := file.Info()
 		if err != nil {
-			fmt.Printf(locales.GetMsg("internal_scan_002"), filePath, err.Error())
+			fmt.Printf(locales.GetMsg(constants.SCAN_GET_FILE_INFO_FAIL_KEY), filePath, err.Error())
 		} else {
 			fileSize := fileInfo.Size()
 			fileSumSize += fileSize
@@ -56,7 +56,7 @@ func WriteThresholdPathInfo(content string) {
 	if Output_File != nil {
 		_, err := Output_File.WriteString(content)
 		if err != nil {
-			fmt.Printf(locales.GetMsg("internal_scan_003"), content)
+			fmt.Printf(locales.GetMsg(constants.SCAN_WRITE_PATH_FAIL_KEY), content)
 		}
 	}
 }
@@ -66,7 +66,7 @@ var lock sync.Mutex
 func ScanFileByPathGoRoutine(path string, fileSizeChan chan int64) {
 	res, err := os.ReadDir(path)
 	if err != nil {
-		fmt.Printf(locales.GetMsg("internal_scan_001"), path, err.Error())
+		fmt.Printf(locales.GetMsg(constants.SCAN_READ_FOLDER_FAIL_KEY), path, err.Error())
 		fileSizeChan <- 0
 		return
 	}
@@ -89,7 +89,7 @@ func ScanFileByPathGoRoutine(path string, fileSizeChan chan int64) {
 		filePath := path + system.FileSeparator + file.Name()
 		fileInfo, err := file.Info()
 		if err != nil {
-			fmt.Printf(locales.GetMsg("internal_scan_002"), filePath, err.Error())
+			fmt.Printf(locales.GetMsg(constants.SCAN_GET_FILE_INFO_FAIL_KEY), filePath, err.Error())
 		} else {
 			fileSize := fileInfo.Size()
 			if fileSize > Threshold_Byte {
