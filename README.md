@@ -119,12 +119,12 @@ disk -m=clean
 
 ## Download Released Executable File to Run
 1. Windows amd64
-[https://github.com/shootercheng/disk/releases/download/v1.0.0/disk.exe](https://github.com/shootercheng/disk/releases/download/v1.0.0/disk.exe)
+[https://github.com/shootercheng/disk/releases/download/v2.0.0/disk.exe](https://github.com/shootercheng/disk/releases/download/v2.0.0/disk.exe)
 2. Linux amd64
-[https://github.com/shootercheng/disk/releases/download/v1.0.0/disk](https://github.com/shootercheng/disk/releases/download/v1.0.0/disk)
+[https://github.com/shootercheng/disk/releases/download/v2.0.0/disk](https://github.com/shootercheng/disk/releases/download/v2.0.0/disk)
 
 ```bash
-$ wget https://github.com/shootercheng/disk/releases/download/v1.0.0/disk
+$ wget https://github.com/shootercheng/disk/releases/download/v2.0.0/disk
 ```
 ```bash
 $ chmod +x ./disk
