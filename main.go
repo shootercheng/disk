@@ -22,11 +22,28 @@ var (
 )
 
 func init() {
-	flag.StringVar(&methodType, "m", "scan", "执行方法:scan或者clean")
-	flag.StringVar(&rootPath, "r", "", "扫描根路径")
-	flag.StringVar(&outputPath, "o", "scan.txt", "扫描输出文件")
-	flag.Int64Var(&thresholdByte, "t", 1024*1024*1024, "文件大小阈值")
-	flag.StringVar(&language, "l", "zh", "语言环境")
+	flag.StringVar(&methodType, "m", "scan", "Execution method: scan or clean")
+	flag.StringVar(&rootPath, "r", "", "Scan root path")
+	flag.StringVar(&outputPath, "o", "scan.txt", "Scan output file")
+	flag.Int64Var(&thresholdByte, "t", 1024*1024*1024, "File size threshold")
+	flag.StringVar(&language, "l", "en", "Language environment")
+}
+
+func initLanguage() {
+	constants.FILE = locales.GetMsg(constants.FILE_TYPE_KEY)
+	constants.FILE_DIR = locales.GetMsg(constants.FILE_DIR_KEY)
+	constants.DELETE_FLAG = locales.GetMsg(constants.DELETE_FLAG_KEY)
+}
+
+func loadLanguage(inputLanguage *string) {
+	setLang := "en"
+	for _, config := range constants.SUPPORT_LANGUAGE {
+		if config == *inputLanguage {
+			setLang = config
+			break
+		}
+	}
+	locales.LoadLocales(setLang)
 }
 
 func delExistsFile(filePath string) {
@@ -104,17 +121,15 @@ func cleanFile() {
 }
 
 func main() {
+	flag.Parse()
+	loadLanguage(&language)
+	initLanguage()
+
 	if len(os.Args) <= 1 {
 		fmt.Fprintln(os.Stderr, locales.GetMsg(constants.MAIN_ENTER_PARAMS_KEY))
 		flag.PrintDefaults()
 		os.Exit(0)
 	}
-	flag.Usage = func() {
-		flag.PrintDefaults()
-	}
-	flag.Parse()
-
-	locales.LoadLocales(language)
 
 	switch methodType {
 	case "scan":

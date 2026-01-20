@@ -1,8 +1,8 @@
 {
-    "file_type": "FILE",
-    "file_dir": "FILE_DIR",
+    "file_type": "File",
+    "file_dir": "Folder",
     "delete_flag": "{deleted}",
-    "system_info_msg": "Current system type: %s,file path separator: %s\n",
+    "system_info_msg": "Current system type:%s,file path separator:%s\n",
     "scan_read_folder_fail": "Failed to read folder %s: %s\n",
     "scan_get_file_info_fail": "Failed to get file info: %s: %s\n",
     "scan_write_path_fail": "Failed to write path %s to output file\n",
@@ -24,5 +24,10 @@
     "main_enter_params": "Please enter the prompted command line parameters, parameters without default value are required",
     "main_method_error": "Command line parameter m error, please enter scan or clean",
     "main_delete_file_fail": "Delete file: %s failed: %s\n",
-    "main_delete_scan_file_success": "Delete scan output file: %s successful\n"
+    "main_delete_scan_file_success": "Delete scan output file: %s successful\n",
+    "flag_method_usage": "Execution method: scan or clean",
+    "flag_root_path_usage": "Scan root path",
+    "flag_output_path_usage": "Scan output file",
+    "flag_threshold_usage": "File size threshold",
+    "flag_language_usage": "Language environment"
 }

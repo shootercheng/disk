@@ -18,9 +18,12 @@ func CleanFile(scanFilePath string) {
 	fileContent := string(fileBytes)
 	dataLines := strings.Split(fileContent, "\n")
 	indexMap := make(map[int]string)
-	deleteFIleOrDir(dataLines, indexMap, constants.FILE)
-	deleteFIleOrDir(dataLines, indexMap, constants.FILE_DIR)
+	deleteFIleOrDir(dataLines, indexMap, constants.FILE, scanFilePath)
+	deleteFIleOrDir(dataLines, indexMap, constants.FILE_DIR, scanFilePath)
+	writeDelResult(dataLines, indexMap, scanFilePath)
+}
 
+func writeDelResult(dataLines []string, indexMap map[int]string, scanFilePath string) {
 	for index, line := range dataLines {
 		if value, ok := indexMap[index]; !ok || value != "ok" {
 			continue
@@ -28,13 +31,14 @@ func CleanFile(scanFilePath string) {
 		dataLines[index] = constants.DELETE_FLAG + line
 	}
 	result := strings.Join(dataLines, "\n")
-	err = os.WriteFile(scanFilePath, []byte(result), 0644)
+	err := os.WriteFile(scanFilePath, []byte(result), 0644)
 	if err != nil {
 		fmt.Printf(locales.GetMsg(constants.CLEAN_WRITE_DELETE_RESULT_FAIL_KEY), scanFilePath, err.Error())
 	}
+
 }
 
-func deleteFIleOrDir(lines []string, indexMap map[int]string, delType string) {
+func deleteFIleOrDir(lines []string, indexMap map[int]string, delType string, scanFilePath string) {
 	for index, line := range lines {
 		if len(line) == 0 {
 			continue
@@ -66,7 +70,9 @@ func deleteFIleOrDir(lines []string, indexMap map[int]string, delType string) {
 				fmt.Printf(locales.GetMsg(constants.CLEAN_DELETE_SUCCESS_KEY), delType, filePath)
 				indexMap[index] = "ok"
 			}
+		case "N":
 		case "Q":
+			writeDelResult(lines, indexMap, scanFilePath)
 			os.Exit(1)
 		default:
 			fmt.Println(locales.GetMsg(constants.CLEAN_UNKNOWN_COMMAND_KEY))

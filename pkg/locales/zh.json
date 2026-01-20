@@ -1,7 +1,7 @@
 {
-    "file_type": "文件",
-    "file_dir": "文件夹",
-    "delete_flag": "{已删除}",
+    "file_type": "File",
+    "file_dir": "Folder",
+    "delete_flag": "{deleted}",
     "system_info_msg": "当前系统类型:%s,文件路径分隔符:%s\n",
     "scan_read_folder_fail": "读取文件夹 %s 失败:%s\n",
     "scan_get_file_info_fail": "获取文件信息:%s失败:%s\n",
@@ -24,5 +24,10 @@
     "main_enter_params": "请输入提示的命令行参数, 无默认值(default)的为必须输入参数",
     "main_method_error": "命令行参数m错误,请输入scan或者clean",
     "main_delete_file_fail": "删除文件:%s,失败:%s\n",
-    "main_delete_scan_file_success": "删除扫描输出文件:%s 成功\n"
+    "main_delete_scan_file_success": "删除扫描输出文件:%s 成功\n",
+    "flag_method_usage": "执行方法:scan或者clean",
+    "flag_root_path_usage": "扫描根路径",
+    "flag_output_path_usage": "扫描输出文件",
+    "flag_threshold_usage": "文件大小阈值",
+    "flag_language_usage": "语言环境"
 }

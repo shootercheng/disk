@@ -27,5 +27,9 @@ func LoadLocales(language string) {
 }
 
 func GetMsg(key string) string {
-	return localeMap[key]
+	val, ok := localeMap[key]
+	if !ok {
+		fmt.Printf("unknown config key:%s", key)
+	}
+	return val
 }

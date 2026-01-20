@@ -1,9 +1,5 @@
 package constants
 
-import (
-	"github.com/shootercheng/disk/pkg/locales"
-)
-
 const (
 	// Locale keys
 	FILE_TYPE_KEY                      = "file_type"
@@ -35,13 +31,8 @@ const (
 )
 
 var (
-	FILE        string
-	FILE_DIR    string
-	DELETE_FLAG string
+	FILE             string
+	FILE_DIR         string
+	DELETE_FLAG      string
+	SUPPORT_LANGUAGE = [2]string{"en", "zh"}
 )
-
-func init() {
-	FILE = locales.GetMsg(FILE_TYPE_KEY)
-	FILE_DIR = locales.GetMsg(FILE_DIR_KEY)
-	DELETE_FLAG = locales.GetMsg(DELETE_FLAG_KEY)
-}
