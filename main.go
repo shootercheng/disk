@@ -29,16 +29,10 @@ func init() {
 	flag.StringVar(&language, "l", "en", "Language environment")
 }
 
-func initLanguage() {
-	constants.FILE = locales.GetMsg(constants.FILE_TYPE_KEY)
-	constants.FILE_DIR = locales.GetMsg(constants.FILE_DIR_KEY)
-	constants.DELETE_FLAG = locales.GetMsg(constants.DELETE_FLAG_KEY)
-}
-
-func loadLanguage(inputLanguage *string) {
+func loadLanguage() {
 	setLang := "en"
-	for _, config := range constants.SUPPORT_LANGUAGE {
-		if config == *inputLanguage {
+	for _, config := range locales.SUPPORT_LANGUAGE {
+		if config == language {
 			setLang = config
 			break
 		}
@@ -122,8 +116,7 @@ func cleanFile() {
 
 func main() {
 	flag.Parse()
-	loadLanguage(&language)
-	initLanguage()
+	loadLanguage()
 
 	if len(os.Args) <= 1 {
 		fmt.Fprintln(os.Stderr, locales.GetMsg(constants.MAIN_ENTER_PARAMS_KEY))

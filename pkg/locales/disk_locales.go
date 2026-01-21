@@ -5,12 +5,19 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
+	"strings"
 )
 
 //go:embed *.json
 var localeFiles embed.FS
 
 var localeMap map[string]string
+
+var SUPPORT_LANGUAGE []string
+
+func init() {
+	getSupportLang()
+}
 
 func LoadLocales(language string) {
 	filePath := fmt.Sprintf("%s.json", language)
@@ -32,4 +39,17 @@ func GetMsg(key string) string {
 		fmt.Printf("unknown config key:%s", key)
 	}
 	return val
+}
+
+func getSupportLang() {
+	files, err := localeFiles.ReadDir(".")
+	if err != nil {
+		panic("read dir error")
+	}
+	for _, file := range files {
+		lang, found := strings.CutSuffix(file.Name(), ".json")
+		if found {
+			SUPPORT_LANGUAGE = append(SUPPORT_LANGUAGE, lang)
+		}
+	}
 }

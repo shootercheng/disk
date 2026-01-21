@@ -28,11 +28,9 @@ const (
 	MAIN_METHOD_ERROR_KEY              = "main_method_error"
 	MAIN_DELETE_FILE_FAIL_KEY          = "main_delete_file_fail"
 	MAIN_DELETE_SCAN_FILE_SUCCESS_KEY  = "main_delete_scan_file_success"
-)
 
-var (
-	FILE             string
-	FILE_DIR         string
-	DELETE_FLAG      string
-	SUPPORT_LANGUAGE = [2]string{"en", "zh"}
+	// flag
+	FILE        = "File"
+	FILE_DIR    = "Folder"
+	DELETE_FLAG = "{deleted}"
 )

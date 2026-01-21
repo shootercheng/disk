@@ -117,12 +117,12 @@ disk -m=clean
 
 ## 下载已发布的可执行文件运行
 1. windows amd64
-[https://github.com/shootercheng/disk/releases/download/v1.0.0/disk.exe](https://github.com/shootercheng/disk/releases/download/v1.0.0/disk.exe)
+[https://github.com/shootercheng/disk/releases/download/v2.0.0/disk.exe](https://github.com/shootercheng/disk/releases/download/v2.0.0/disk.exe)
 2. linux amd64 
-[https://github.com/shootercheng/disk/releases/download/v1.0.0/disk](https://github.com/shootercheng/disk/releases/download/v1.0.0/disk)
+[https://github.com/shootercheng/disk/releases/download/v2.0.0/disk](https://github.com/shootercheng/disk/releases/download/v2.0.0/disk)
 
 ```bash
-$ wget https://github.com/shootercheng/disk/releases/download/v1.0.0/disk
+$ wget https://github.com/shootercheng/disk/releases/download/v2.0.0/disk
 ```
 ```bash
 $ chmox +x ./disk

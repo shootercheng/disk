@@ -1,7 +1,4 @@
 {
-    "file_type": "File",
-    "file_dir": "Folder",
-    "delete_flag": "{deleted}",
     "system_info_msg": "当前系统类型:%s,文件路径分隔符:%s\n",
     "scan_read_folder_fail": "读取文件夹 %s 失败:%s\n",
     "scan_get_file_info_fail": "获取文件信息:%s失败:%s\n",

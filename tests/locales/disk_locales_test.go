@@ -28,9 +28,6 @@ func TestLoadLocaleEn(t *testing.T) {
 func TestAllLocaleKeys(t *testing.T) {
 	// All available keys in the locale files
 	keys := []string{
-		"file_type",
-		"file_dir",
-		"delete_flag",
 		"system_info_msg",
 		"scan_read_folder_fail",
 		"scan_get_file_info_fail",

@@ -1,7 +1,4 @@
 {
-    "file_type": "File",
-    "file_dir": "Folder",
-    "delete_flag": "{deleted}",
     "system_info_msg": "Current system type:%s,file path separator:%s\n",
     "scan_read_folder_fail": "Failed to read folder %s: %s\n",
     "scan_get_file_info_fail": "Failed to get file info: %s: %s\n",
