@@ -34,6 +34,9 @@ func LoadLocales(language string) {
 }
 
 func GetMsg(key string) string {
+	if len(localeMap) == 0 {
+		LoadLocales("zh")
+	}
 	val, ok := localeMap[key]
 	if !ok {
 		fmt.Printf("unknown config key:%s", key)
