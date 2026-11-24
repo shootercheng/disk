@@ -3,6 +3,8 @@ package scan
 import (
 	"fmt"
 	"os"
+	"strconv"
+	"strings"
 
 	"github.com/shootercheng/disk/pkg/constants"
 	"github.com/shootercheng/disk/pkg/locales"
@@ -10,7 +12,7 @@ import (
 )
 
 var (
-	Threshold_Byte int64 = 1024 * 1024 * 1024
+	Threshold_Byte int64 = constants.GB_CAP
 	Output_File    *os.File
 )
 
@@ -27,7 +29,7 @@ func ScanFileByPath(path string) int64 {
 			currenDirPath := path + system.FileSeparator + file.Name()
 			dirSize := ScanFileByPath(currenDirPath)
 			if dirSize >= Threshold_Byte {
-				content := fmt.Sprintf("[%s]:%s,%d\n", constants.FILE_DIR, currenDirPath, dirSize)
+				content := fmt.Sprintf("[%s]:%s,%s\n", constants.FILE_DIR, currenDirPath, ConvertUnit(dirSize))
 				fmt.Print(content)
 				WriteThresholdPathInfo(content)
 			}
@@ -42,7 +44,7 @@ func ScanFileByPath(path string) int64 {
 			fileSize := fileInfo.Size()
 			fileSumSize += fileSize
 			if fileSize >= Threshold_Byte {
-				content := fmt.Sprintf("[%s]:%s,%d\n", constants.FILE, filePath, fileSize)
+				content := fmt.Sprintf("[%s]:%s,%s\n", constants.FILE, filePath, ConvertUnit(fileSize))
 				fmt.Print(content)
 				WriteThresholdPathInfo(content)
 			}
@@ -57,5 +59,29 @@ func WriteThresholdPathInfo(content string) {
 		if err != nil {
 			fmt.Printf(locales.GetMsg(constants.SCAN_WRITE_PATH_FAIL_KEY), content)
 		}
+	}
+}
+
+func ConvertUnit(inputSize int64) string {
+	if inputSize < constants.KB_CAP {
+		return strconv.FormatInt(inputSize, 10) + "B"
+	}
+	if inputSize < constants.MB_CAP {
+		return DivConversion(inputSize, constants.KB_CAP, "KB")
+	}
+	if inputSize < constants.GB_CAP {
+		return DivConversion(inputSize, constants.MB_CAP, "MB")
+	}
+	return DivConversion(inputSize, constants.GB_CAP, "GB")
+}
+
+func DivConversion(inputSize int64, unitSize int64, unitStr string) string {
+	if inputSize%unitSize == 0 {
+		return strconv.FormatInt(inputSize/unitSize, 10) + unitStr
+	} else {
+		result := float64(inputSize) / float64(unitSize)
+		format := fmt.Sprintf("%.2f", result)
+		format = strings.TrimRight(format, "0") + unitStr
+		return format
 	}
 }

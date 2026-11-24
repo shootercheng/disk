@@ -97,7 +97,7 @@ func scanFile() {
 	t := time.Now()
 	size := scan.ScanFileByPath(rootPath)
 	if size >= scan.Threshold_Byte {
-		content := fmt.Sprintf("[%s]:%s,%d\n", constants.FILE_DIR, rootPath, size)
+		content := fmt.Sprintf("[%s]:%s,%s\n", constants.FILE_DIR, rootPath, scan.ConvertUnit(size))
 		fmt.Print(content)
 		scan.WriteThresholdPathInfo(content)
 	}

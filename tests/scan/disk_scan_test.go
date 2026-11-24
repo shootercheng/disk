@@ -73,3 +73,58 @@ func TestScanFileByPath(t *testing.T) {
 		})
 	}
 }
+
+func TestDivConversion(t *testing.T) {
+	tests := []struct {
+		name        string
+		inputSize   int64
+		expectedRes string
+	}{
+		{
+			name:        "0B",
+			inputSize:   0,
+			expectedRes: "0B",
+		},
+		{
+			name:        "512B",
+			inputSize:   512,
+			expectedRes: "512B",
+		},
+		{
+			name:        "1KB",
+			inputSize:   1024,
+			expectedRes: "1KB",
+		},
+		{
+			name:        "1.95KB",
+			inputSize:   2000,
+			expectedRes: "1.95KB",
+		},
+		{
+			name:        "1MB",
+			inputSize:   1024 * 1024,
+			expectedRes: "1MB",
+		},
+		{
+			name:        "1GB",
+			inputSize:   1024 * 1024 * 1024,
+			expectedRes: "1GB",
+		},
+		{
+			name:        "1.5GB",
+			inputSize:   1024 * 1024 * 1024 * 1.5,
+			expectedRes: "1.5GB",
+		},
+		{
+			name:        "1.75GB",
+			inputSize:   1024 * 1024 * 1024 * 1.75,
+			expectedRes: "1.75GB",
+		},
+	}
+	for _, tt := range tests {
+		calRes := scan.ConvertUnit(tt.inputSize)
+		if calRes != tt.expectedRes {
+			t.Fatalf("test %s div conversion error, cal %s, excepted %s", tt.name, calRes, tt.expectedRes)
+		}
+	}
+}

@@ -33,4 +33,9 @@ const (
 	FILE        = "File"
 	FILE_DIR    = "Folder"
 	DELETE_FLAG = "{deleted}"
+
+	// unit
+	KB_CAP = 1024
+	MB_CAP = 1024 * 1024
+	GB_CAP = 1024 * 1024 * 1024
 )
