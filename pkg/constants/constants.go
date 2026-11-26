@@ -38,4 +38,8 @@ const (
 	KB_CAP = 1024
 	MB_CAP = 1024 * 1024
 	GB_CAP = 1024 * 1024 * 1024
+
+	// language
+	LANG_ZH = "zh"
+	LANG_EN = "en"
 )

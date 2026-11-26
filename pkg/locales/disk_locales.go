@@ -6,6 +6,8 @@ import (
 	"fmt"
 	"os"
 	"strings"
+
+	"github.com/shootercheng/disk/pkg/constants"
 )
 
 //go:embed *.json
@@ -35,7 +37,7 @@ func LoadLocales(language string) {
 
 func GetMsg(key string) string {
 	if len(localeMap) == 0 {
-		LoadLocales("zh")
+		LoadLocales(constants.LANG_EN)
 	}
 	val, ok := localeMap[key]
 	if !ok {

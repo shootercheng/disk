@@ -30,7 +30,7 @@ func init() {
 }
 
 func loadLanguage() {
-	setLang := "en"
+	setLang := constants.LANG_EN
 	for _, config := range locales.SUPPORT_LANGUAGE {
 		if config == language {
 			setLang = config
@@ -95,12 +95,7 @@ func scanFile() {
 	system.PrintSysInfo()
 
 	t := time.Now()
-	size := scan.ScanFileByPath(rootPath)
-	if size >= scan.Threshold_Byte {
-		content := fmt.Sprintf("[%s]:%s,%s\n", constants.FILE_DIR, rootPath, scan.ConvertUnit(size))
-		fmt.Print(content)
-		scan.WriteThresholdPathInfo(content)
-	}
+	scan.ScanInputPath(rootPath)
 	cost_time := time.Since(t)
 	fmt.Printf("%s%s\n", locales.GetMsg(constants.MAIN_SCAN_TIME_KEY), cost_time)
 }

@@ -16,6 +16,15 @@ var (
 	Output_File    *os.File
 )
 
+func ScanInputPath(path string) {
+	size := ScanFileByPath(path)
+	if size >= Threshold_Byte {
+		content := fmt.Sprintf("[%s]:%s,%s\n", constants.FILE_DIR, path, ConvertUnit(size))
+		fmt.Print(content)
+		WriteThresholdPathInfo(content)
+	}
+}
+
 func ScanFileByPath(path string) int64 {
 	res, err := os.ReadDir(path)
 	if err != nil {
